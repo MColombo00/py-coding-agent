@@ -24,13 +24,17 @@ def main():
         contents=messages
         )
     
+    if args.verbose:
+        print(f"User Prompt: {args.user_prompt}")
+        print(f"\nPrompt Token Count: {response.usage_metadata.prompt_token_count}")
+        print(f"\nCandidates Token Count: {response.usage_metadata.candidates_token_count}")
+
+
     #output and catch if server cannot respond due to busy servers
-    print(response.text)
     if response is None or response.usage_metadata is None:
         print("failed to get usage metadata or server is busy, try again later")
         return
     
-    print(f"Prompt Token Count: {response.usage_metadata.prompt_token_count}")
-    print(f"Candidates Token Count: {response.usage_metadata.candidates_token_count}")
-
+    print(f"\nResponse: {response.text}")
+    
 main()
